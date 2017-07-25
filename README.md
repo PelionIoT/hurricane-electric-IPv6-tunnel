@@ -33,7 +33,7 @@ incoming traffic from the HE tunnel broker to reach the IPv6 devices.
 A sample setup looks like the below:
 
 <p align="center">
-	<img src="./media/image2.jpeg" width="697" height="392" />
+	<img src="./media/image2.jpg" width="697" height="392" />
 </p>
 
 Hardware required:
