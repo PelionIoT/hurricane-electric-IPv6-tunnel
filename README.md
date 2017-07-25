@@ -22,8 +22,9 @@ devices directly to internet.
 IPv6 and vice-versa.
 
 **This setup uses the following model:**
-
-<img align="center" src="./media/image1.png" width="717" height="192" />
+<p align="center">
+	<img src="./media/image1.png" width="717" height="192" />
+</p>
 
 The proposed setup uses a USB modem and a cellular backhaul with a fixed
 and public IPv4 address provided by the ISP. This is required to allow
@@ -31,7 +32,9 @@ incoming traffic from the HE tunnel broker to reach the IPv6 devices.
 
 A sample setup looks like the below:
 
-<img src="./media/image2.jpeg" width="697" height="392" />
+<p align="center">
+	<img src="./media/image2.jpeg" width="697" height="392" />
+</p>
 
 Hardware required:
 ------------------
@@ -206,7 +209,9 @@ Jul 17 11:47:20 raspberrypi pppd\[2013\]: secondary DNS address 5.226.56.162
 
 -   Go to Hurricane Electric website and login with your account.
 
-<img src="./media/image3.JPG" width="721" height="226" />
+<p align="center">
+	<img src="./media/image3.JPG" width="721" height="226" />
+</p>
 
 -   After login, click on “create regular tunnel” on the left hand pane
     and enter the static + public IP obtained from the ISP. **Hurricane
@@ -216,12 +221,16 @@ Jul 17 11:47:20 raspberrypi pppd\[2013\]: secondary DNS address 5.226.56.162
 
 Configure the tunnel with the local IP as shown below:
 
-<img src="./media/image4.JPG" width="697" height="198" />
+<p align="center">
+	<img src="./media/image4.JPG" width="697" height="198" />
+</p>
 
 The following image shows an example of tunnel information that is being
 used:
 
-<img src="./media/image5.JPG" width="697" height="340" />
+<p align="center">
+	<img src="./media/image5.JPG" width="697" height="340" />
+</p>
 
 Clicking on the tunnel’s name brings up more detials that will be used
 for the network interface configuration. This is shown below.
@@ -233,7 +242,9 @@ TIP: An example of the configuration to be used for the network
 interface is provided by Hurricane Electric under the “Example
 configurations” tab in the tunnel details page.
 
-<img src="./media/image6.JPG" width="697" height="481" />
+<p align="center">
+	<img src="./media/image6.JPG" width="697" height="481" />
+</p>
 
 -   Use these details to create the network interface i.e. the
     he-ipv6 interface.
@@ -399,19 +410,12 @@ ppp0 Link encap:Point-to-Point Protocol
 
 ```
  I'm Thread (Border) Router
-
  XPANID: f1:b5:a1:b2:c4:d5:a1:bd
-
  PSKc: c8:a6:2e:ae:f3:68:f3:46:a9:9e:57:85:98:9d:1c:d0
-
  mesh0 bootstrap ongoing..
-
  eth0 already down
-
  Bootstrap ready
-
  eth0 ready
-
  Ethernet (eth0) bootstrap ready. IP: 2001:470:1d4c:1:fc45:f3d8:ba98:49ee
 ```
 
@@ -425,7 +429,7 @@ ready to connect to end nodes.
 
     Test the complete setup, use the
     [mbed-os-example-client](https://github.com/ARMmbed/mbed-os-example-client.git)
-    repo and mbed Device Connector. This is left to the user to
+    repo and mbed Device Connector / mbed Cloud. This is left to the user to
     implement & is beyond the scope of this document.
 
 Congratulations!! your tunnel broker is now fully working 🙂 . Go ahead
@@ -500,114 +504,10 @@ UDP, length 51
 &gt; 2001:470:1d4c:1:7874:6668:977a:ba86.49247: UDP, length 44
 11:52:42.419235 IP6
 0200.0000.0000.0000.2500.1062.0d0f.7062.ip6.static.sl-reverse.com.5684
-&gt; 2001:470:1d4c:1:7874:6668:977a:ba86.49247: UDP, length 55
-11:52:42.439411 IP6 2001:470:1d4c:1:7874:6668:977a:ba86.49247 &gt;
-0200.0000.0000.0000.2500.1062.0d0f.7062.ip6.static.sl-reverse.com.5684:
-UDP, length 48
-11:52:42.863896 IP6 fe80::4e85:b5d0:20a7:fab6 &gt; ip6-allnodes:
-ICMP6, router advertisement, length 80
-11:52:45.946011 IP6 fe80::4e85:b5d0:20a7:fab6 &gt;
-2001:470:1d4c:1:7874:6668:977a:ba86: ICMP6, neighbor solicitation, who
-has 2001:470:1d4c:1:7874:6668:977a:ba86, length 32
-11:52:45.946633 IP6 fe80::ec42:e6ff:fe63:23fc &gt;
-fe80::4e85:b5d0:20a7:fab6: ICMP6, neighbor advertisement, tgt is
-2001:470:1d4c:1:7874:6668:977a:ba86, length 32
-11:52:47.414891 IP6 fe80::ec42:e6ff:fe63:23fc &gt;
-fe80::4e85:b5d0:20a7:fab6: ICMP6, neighbor solicitation, who has
-fe80::4e85:b5d0:20a7:fab6, length 32
-11:52:47.415101 IP6 fe80::4e85:b5d0:20a7:fab6 &gt;
-fe80::ec42:e6ff:fe63:23fc: ICMP6, neighbor advertisement, tgt is
-fe80::4e85:b5d0:20a7:fab6, length 24
-11:52:48.549288 IP6 fe80::4e85:b5d0:20a7:fab6 &gt; ip6-allnodes:
-ICMP6, router advertisement, length 80
-11:52:53.420092 IP6 fe80::4e85:b5d0:20a7:fab6 &gt; ip6-allnodes:
-ICMP6, router advertisement, length 80
-11:52:55.558679 IP6 2001:470:1d4c:1:7874:6668:977a:ba86.49247 &gt;
-0200.0000.0000.0000.2500.1062.0d0f.7062.ip6.static.sl-reverse.com.5684:
-UDP, length 51
-11:52:55.779268 IP6
-0200.0000.0000.0000.2500.1062.0d0f.7062.ip6.static.sl-reverse.com.5684
-&gt; 2001:470:1d4c:1:7874:6668:977a:ba86.49247: UDP, length 44
-11:52:56.023022 IP 0.0.0.0.bootpc &gt; 255.255.255.255.bootps:
-BOOTP/DHCP, Request from b8:27:eb:2a:d2:36 (oui Unknown), length 340
-11:52:58.084650 IP6 fe80::4e85:b5d0:20a7:fab6 &gt; ip6-allnodes:
-ICMP6, router advertisement, length 80
-11:53:05.522062 IP6 fe80::4e85:b5d0:20a7:fab6 &gt; ip6-allnodes:
-ICMP6, router advertisement, length 80
-11:53:10.402691 IP6 2001:470:1d4c:1:7874:6668:977a:ba86.49247 &gt;
-0200.0000.0000.0000.2500.1062.0d0f.7062.ip6.static.sl-reverse.com.5684:
-UDP, length 51
-11:53:10.618881 IP6
-0200.0000.0000.0000.2500.1062.0d0f.7062.ip6.static.sl-reverse.com.5684
-&gt; 2001:470:1d4c:1:7874:6668:977a:ba86.49247: UDP, length 44
-11:53:12.493073 IP6 fe80::4e85:b5d0:20a7:fab6 &gt; ip6-allnodes:
-ICMP6, router advertisement, length 80
-11:53:15.359849 IP6 fe80::ec42:e6ff:fe63:23fc &gt;
-fe80::4e85:b5d0:20a7:fab6: ICMP6, neighbor solicitation, who has
-fe80::4e85:b5d0:20a7:fab6, length 32
-11:53:15.360206 IP6 fe80::4e85:b5d0:20a7:fab6 &gt;
-fe80::ec42:e6ff:fe63:23fc: ICMP6, neighbor advertisement, tgt is
-fe80::4e85:b5d0:20a7:fab6, length 24
-11:53:19.789452 IP6 fe80::4e85:b5d0:20a7:fab6 &gt; ip6-allnodes:
-ICMP6, router advertisement, length 80
-11:53:20.366024 IP6 fe80::4e85:b5d0:20a7:fab6 &gt;
-fe80::ec42:e6ff:fe63:23fc: ICMP6, neighbor solicitation, who has
-fe80::ec42:e6ff:fe63:23fc, length 32
-11:53:20.366603 IP6 fe80::ec42:e6ff:fe63:23fc &gt;
-fe80::4e85:b5d0:20a7:fab6: ICMP6, neighbor advertisement, tgt is
-fe80::ec42:e6ff:fe63:23fc, length 32
-11:53:24.812525 IP6 fe80::4e85:b5d0:20a7:fab6 &gt; ip6-allnodes:
-ICMP6, router advertisement, length 80
-11:53:25.246968 IP6 2001:470:1d4c:1:7874:6668:977a:ba86.49247 &gt;
-0200.0000.0000.0000.2500.1062.0d0f.7062.ip6.static.sl-reverse.com.5684:
-UDP, length 51
-11:53:25.546796 IP6
-0200.0000.0000.0000.2500.1062.0d0f.7062.ip6.static.sl-reverse.com.5684
-&gt; 2001:470:1d4c:1:7874:6668:977a:ba86.49247: UDP, length 44
-11:53:30.556016 IP6 fe80::4e85:b5d0:20a7:fab6 &gt;
-2001:470:1d4c:1:7874:6668:977a:ba86: ICMP6, neighbor solicitation, who
-has 2001:470:1d4c:1:7874:6668:977a:ba86, length 32
-11:53:30.556703 IP6 fe80::ec42:e6ff:fe63:23fc &gt;
-fe80::4e85:b5d0:20a7:fab6: ICMP6, neighbor advertisement, tgt is
-2001:470:1d4c:1:7874:6668:977a:ba86, length 32
-11:53:31.645519 IP6 fe80::4e85:b5d0:20a7:fab6 &gt; ip6-allnodes:
-ICMP6, router advertisement, length 80
- 11:53:37.743094 IP6 2001:470:1d4c:1:7874:6668:977a:ba86.49247 &gt;
-0200.0000.0000.0000.2500.1062.0d0f.7062.ip6.static.sl-reverse.com.5684:
-UDP, length 120
-11:53:37.981480 IP6
-0200.0000.0000.0000.2500.1062.0d0f.7062.ip6.static.sl-reverse.com.5684
-&gt; 2001:470:1d4c:1:7874:6668:977a:ba86.49247: UDP, length 44
-11:53:39.726416 IP6 fe80::4e85:b5d0:20a7:fab6 &gt; ip6-allnodes:
-ICMP6, router advertisement, length 80
-11:53:40.089343 IP6 2001:470:1d4c:1:7874:6668:977a:ba86.49247 &gt;
-0200.0000.0000.0000.2500.1062.0d0f.7062.ip6.static.sl-reverse.com.5684:
-UDP, length 51
-11:53:40.299072 IP6
-0200.0000.0000.0000.2500.1062.0d0f.7062.ip6.static.sl-reverse.com.5684
-&gt; 2001:470:1d4c:1:7874:6668:977a:ba86.49247: UDP, length 44
-11:53:42.701672 IP6 fe80::ec42:e6ff:fe63:23fc &gt;
-fe80::4e85:b5d0:20a7:fab6: ICMP6, neighbor solicitation, who has
-fe80::4e85:b5d0:20a7:fab6, length 32
-11:53:42.702028 IP6 fe80::4e85:b5d0:20a7:fab6 &gt;
-fe80::ec42:e6ff:fe63:23fc: ICMP6, neighbor advertisement, tgt is
-fe80::4e85:b5d0:20a7:fab6, length 24
-11:53:42.770725 IP6 fe80::4e85:b5d0:20a7:fab6 &gt; ip6-allnodes:
-ICMP6, router advertisement, length 80
-11:53:46.934113 IP6 fe80::4e85:b5d0:20a7:fab6 &gt; ip6-allnodes:
-ICMP6, router advertisement, length 80
-11:53:50.085430 IP6 fe80::4e85:b5d0:20a7:fab6 &gt; ip6-allnodes:
-ICMP6, router advertisement, length 80
-11:53:54.034399 IP6 fe80::4e85:b5d0:20a7:fab6 &gt; ip6-allnodes:
-ICMP6, router advertisement, length 80
-11:53:54.932851 IP6 2001:470:1d4c:1:7874:6668:977a:ba86.49247 &gt;
-0200.0000.0000.0000.2500.1062.0d0f.7062.ip6.static.sl-reverse.com.5684:
-UDP, length 51
-11:53:55.138655 IP6
-0200.0000.0000.0000.2500.1062.0d0f.7062.ip6.static.sl-reverse.com.5684
-&gt; 2001:470:1d4c:1:7874:6668:977a:ba86.49247: UDP, length 44
-11:54:00.067632 IP 0.0.0.0.bootpc &gt; 255.255.255.255.bootps:
-BOOTP/DHCP, Request from b8:27:eb:2a:d2:36 (oui Unknown), length 340
+...
+< snip >
+...
+
 11:54:02.629159 IP6 fe80::4e85:b5d0:20a7:fab6 &gt; ip6-allnodes:
 ICMP6, router advertisement, length 80
 11:54:06.472051 IP6 fe80::4e85:b5d0:20a7:fab6 &gt; ip6-allnodes:
