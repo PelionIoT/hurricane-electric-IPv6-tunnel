@@ -1,34 +1,24 @@
 How to setup Hurricane Electric for IPv6/IPv4 tunnel on Raspberry Pi:
 =====================================================================
 
-Note: This document is a ***basic tutorial only***, for detailed
-instructions/troubleshooting, please get in touch on GitHub. We are
+Note: This document is a ***basic tutorial only***, for detailed instructions/troubleshooting, please get in touch on GitHub. We are
 happy to receive your PR's.
 
-A major requirement for this setup to be operational is to have a public
-static IP address for your chosen backhaul network.
+A major requirement for this setup to be operational is to have a public static IP address for your chosen backhaul network.
 
 Purpose of the tunnel broker:
 -----------------------------
 
-**The problem:** For 6LoWPAN / Thread networks to be operational with
-public web services, a requirement is the availability of IPv6 backhaul
-networks to internet. However, due to the slow deployment and adoption
-of the IPv6 addresses, many ISP are not able to provide native IPv6
-support, and hence limiting the possibility of connecting 6LoWPAN based
-devices directly to internet.
+**The problem:** For 6LoWPAN / Thread networks to be operational with public web services, a requirement is the availability of IPv6 backhaul networks to internet. However, due to the slow deployment and adoption of the IPv6 addresses, many ISP are not able to provide native IPv6 support, and hence limiting the possibility of connecting 6LoWPAN based devices directly to internet.
 
-**One Solution:** Use a tunnel broker to encapsulate IPv4 traffic into
-IPv6 and vice-versa.
+**One Solution:** Use a tunnel broker to encapsulate IPv4 traffic into IPv6.
 
 **This setup uses the following model:**
 <p align="center">
 	<img src="./media/image1.png" width="717" height="192" />
 </p>
 
-The proposed setup uses a USB modem and a cellular backhaul with a fixed
-and public IPv4 address provided by the ISP. This is required to allow
-incoming traffic from the HE tunnel broker to reach the IPv6 devices.
+The proposed setup uses a USB modem and a cellular backhaul with a fixed and public IPv4 address provided by the ISP. This is required to allow incoming traffic from the HE tunnel broker to reach the IPv6 devices.
 
 A sample setup looks like the below:
 
@@ -41,12 +31,10 @@ Hardware required:
 
 1.  Raspberry Pi 3, model B.
 
-2.  Power supply (5V, &gt;2A).
+2.  Power supply (5V, 2A).
 
-3.  USB MODEM compatible with a RPi - The choice of modem is very
-    important as it must NOT do any NAT / firewalling. We are using a
-    Chinese made LTE USB modem with Siemens SG75 chip. Latest models
-    seem to be using Qualcomm 9200 / 9500. \[[Product
+3.  USB MODEM compatible with a RPi - The choice of modem is very important as it must NOT do any NAT / firewalling. We are using a
+    Chinese made LTE USB modem with Siemens SG75 chip. Latest models seem to be using Qualcomm 9200 / 9500. \[[Product
     link](https://www.aliexpress.com/item/4G-LTE-100Mbps-USB-Modem-Network-Adapter-with-WiFi-Antenna-Hotspot-For-Win-XP-Vista-7/32810949702.html?spm=2114.search0104.3.138.PVl54K&ws_ab_test=searchweb0_0,searchweb201602_1_10152_10065_10151_10068_10130_10209_10192_10190_10301_10137_10303_10060_10155_438_10154_10056_10055_10054_10059_100031_10099_10103_10102_10052_10053_10142_10107_10050_10051_9985_10084_10083_10080_10082_10081_10110_10111_10112_10113_10114_10179_10182_10184_10078_10079_10210_10073_10189-10052_9985_10111,searchweb201603_16,ppcSwitch_4&btsid=90dde5d9-16d3-4b1f-9af4-1f4af205a0ad&algo_expid=3c5f0590-4082-4386-b08a-d9d63f18dc0c-18&algo_pvid=3c5f0590-4082-4386-b08a-d9d63f18dc0c)\]
 
 4.  SIM card with a fixed/public IPv4 address mobile connection. For
@@ -67,11 +55,7 @@ SW required:
 
 2.   wvdial for the connection dialler.
 
-3.   An account and a regular tunnel created on Hurricane Electric – For
-    this there is a need of static public IP assigned from your ISP. In
-    this case, we have a static public IP assigned from
-    the mobile operator. The Hurricane Electric tunnel is created based
-    on this IP address.
+3.   An account and a regular tunnel created on Hurricane Electric – For this there is a need of static public IP assigned from your ISP. In this case, we have a static public IP assigned from the mobile operator. The Hurricane Electric tunnel is created based on this IP address.
 
 Steps:
 ------
@@ -84,15 +68,14 @@ Steps:
 sudo apt-get install wvdial
 ```
 
--   Make a dial config file if not already available at
-    “/etc/wvdial.conf” with following details:
+-   Make a dial config file if not already available at `/etc/wvdial.conf` with following details:
 
 ```
 [Dialer comms]
 
 Init1 = ATZ
 Init2 = ATQ0 V1 E1 +FCLASS=0
-Init3 = AT+CGDCONT=1, "IP","&lt;your APN here&gt;"
+Init3 = AT+CGDCONT=1, "IP","< your ISP supplied APN here >"
 Phone = \*99\#
 Auto DNS = on
 Stupid mode = 1
@@ -101,20 +84,17 @@ New PPPD = yes
 Dial Command = ATDT
 Modem = /dev/ttyUSB1
 ISDN = 0
-Username = &lt;your ISP supplied username here&gt;
-Password = &lt;your ISP supplied password here&gt;
+Username = "< your ISP supplied username here >" ;
+Password = "< your ISP supplied password here >";
 Carrier Check = yes
 ```
 
-You may also need to change your serial device (ttyUSB1) based on your
-system. However, in most cases, USB1 should be good to go.
+You may also need to change your serial device (ttyUSB1) based on your system. However, in most cases, USB1 should be good to go.
 
--   The details for the username and password may be provided by the
-    mobile operator. Most of other details are a set of AT commands to
+-   The details for the username and password may be provided by the mobile operator. Most of other details are a set of AT commands to
     operate the modem.
 
--   Plug in the USB modem to a free USB port on the RPi and make sure it
-    is detected with “lsusb”:
+-   Plug in the USB modem to a free USB port on the RPi and make sure it is detected with `lsusb`:
 
 ```
 root@raspberrypi:~\# lsusb
@@ -125,7 +105,7 @@ Bus 001 Device 002: ID 0424:9514 Standard Microsystems Corp.
 Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 ```
 
-Note the USB modem is detected as 05c6:6000 Qualcomm Inc. Siemens SG75
+Note the USB modem is detected as `05c6:6000 Qualcomm Inc. Siemens SG75`
 
 -   Then on the terminal, start the dialler to create the connection:
 
@@ -133,12 +113,8 @@ Note the USB modem is detected as 05c6:6000 Qualcomm Inc. Siemens SG75
 sudo wvdial comms
 ```
 
-The dialler starts with a set of AT commands to the modem and then
-establishes the connection to the ISP. When this is successful, it will
-obtain an IP address for the SIM. This indicates a successful
-connection. Also, on the modem that has been used, the LED starts to
-flash BLUE when the connection is established. This also serves as a
-visual indication for successful connection.
+The dialler starts with a set of AT commands to the modem and then establishes the connection to the ISP. When this is successful, it will obtain an IP address for the SIM. This indicates a successful connection. Also, on the modem that has been used, the LED starts to
+flash BLUE when the connection is established. This also serves as a visual indication for successful connection.
 
 ```
 root@raspberrypi:~\# wvdial comms
@@ -178,8 +154,7 @@ pppd: ▒Q▒v8Ĩ\[01\]▒è\[01\]
 
 ```
 
--   Once connected, a local IP & DNS should be shown as above. It’s
-    possible to check the system logs to track progress of the
+-   Once connected, a local IP & DNS should be shown as above. It’s possible to check the system logs to track progress of the
     connection using the following command:
 
 ```
@@ -188,10 +163,8 @@ tail -f /var/log/messages
 
 An example of system log messages is shown below.
 
-Note that it may take a few attempts to establish a successful
-connection depending on the location of the modem and the signal
-strength of the carrier / network coverage of the provider that has been
-chosen.
+Note that it may take a few attempts to establish a successful connection depending on the location of the modem and the signal
+strength of the carrier / network coverage of the provider that has been chosen.
 
 ```
 Jul 17 11:47:20 raspberrypi pppd\[2013\]: pppd 2.4.6 started by root, uid 0
@@ -213,11 +186,7 @@ Jul 17 11:47:20 raspberrypi pppd\[2013\]: secondary DNS address 5.226.56.162
 	<img src="./media/image3.JPG" width="721" height="226" />
 </p>
 
--   After login, click on “create regular tunnel” on the left hand pane
-    and enter the static + public IP obtained from the ISP. **Hurricane
-    electric will then try to ping the device and if successful, will
-    return the tunnel configuration as below. For this to work, you need
-    to have a public, static IP from your ISP.**
+-   After login, click on “create regular tunnel” on the left hand pane and enter the static + public IP obtained from the ISP. **Hurricane electric will then try to ping the device and if successful, will return the tunnel configuration as below. For this to work, you need to have a public, static IP from your ISP.**
 
 Configure the tunnel with the local IP as shown below:
 
@@ -225,29 +194,24 @@ Configure the tunnel with the local IP as shown below:
 	<img src="./media/image4.JPG" width="697" height="198" />
 </p>
 
-The following image shows an example of tunnel information that is being
-used:
+The following image shows an example of tunnel information that is being used:
 
 <p align="center">
 	<img src="./media/image5.JPG" width="697" height="340" />
 </p>
 
-Clicking on the tunnel’s name brings up more detials that will be used
-for the network interface configuration. This is shown below.
+Clicking on the tunnel’s name brings up more detials that will be used for the network interface configuration. This is shown below.
 
-Use this configuration for the Hurricane Electric interface
-configuration in /etc/network/interfaces.
+Use this configuration for the Hurricane Electric interface configuration in /etc/network/interfaces.
 
-TIP: An example of the configuration to be used for the network
-interface is provided by Hurricane Electric under the “Example
+TIP: An example of the configuration to be used for the network interface is provided by Hurricane Electric under the “Example
 configurations” tab in the tunnel details page.
 
 <p align="center">
 	<img src="./media/image6.JPG" width="697" height="481" />
 </p>
 
--   Use these details to create the network interface i.e. the
-    he-ipv6 interface.
+-   Use these details to create the network interface i.e. the `he-ipv6` interface.
 
 ```
 root@raspberrypi:~\# cat /etc/network/interfaces
@@ -296,16 +260,13 @@ allow-hotplug wlan1
 
 ```
 
--   Restart the networking service with the following command on the
-    terminal:
+-   Restart the networking service with the following command on the terminal:
 
 ```
 sudo /etc/init.d/networking restart
 ```
 
--   Ping google.com / bbc.co.uk / facebook.com to make sure you have
-    IPv4 connectivity. Once this is OK, you should have another
-    interface in ifconfig called ppp0.
+-   Ping google.com to make sure you have IPv4 connectivity. Once this is OK, you should have another interface in ifconfig called ppp0.
 
 ```
 root@raspberrypi:~\# ping google.com
@@ -325,8 +286,7 @@ rtt min/avg/max/mdev = 57.560/88.247/124.674/21.132 ms
 
 ```
 
--   Now, **ping6** google.com or bbc.co.uk or facebook.com to make sure
-    the tunnel is working.
+-   Now, **ping6** google.com or bbc.co.uk or facebook.com to make sure the tunnel is working.
 
 ```
 root@raspberrypi:~\# ping6 -c 10 google.com
@@ -358,8 +318,7 @@ rtt min/avg/max/mdev = 509.854/561.561/688.526/65.861 ms
 
 ```
 
--   Monitor the packets Tx/Rx on ppp0 and he-ipv6 interface to make sure
-    packets are being sent out and received.
+-   Monitor the packets Tx/Rx on ppp0 and he-ipv6 interface to make sure packets are being sent out and received.
 
 ```
 root@raspberrypi:~\# ifconfig
@@ -405,8 +364,7 @@ ppp0 Link encap:Point-to-Point Protocol
 
     -   Check Router Advertisements packets.
 
-    -   Running the mbed client CLI app on the K64F + AT233 shield
-        (Thread Border router) gives the following:
+    -   Running the mbed client CLI app on the K64F + AT233 shield (Thread Border router) gives the following:
 
 ```
  I'm Thread (Border) Router
@@ -419,62 +377,40 @@ ppp0 Link encap:Point-to-Point Protocol
  Ethernet (eth0) bootstrap ready. IP: 2001:470:1d4c:1:fc45:f3d8:ba98:49ee
 ```
 
-The last line from the serial log of the border router indicates the
-ETH interface on the border router obtains an IPv6 address in the same
-address space as that specified in the /etc/network/interfaces. In
-this case, it is the 2001:470:1d4c:1 range. Now, the border router is
-ready to connect to end nodes.
+The last line from the serial log of the border router indicates the ETH interface on the border router obtains an IPv6 address in the same address space as that specified in the /etc/network/interfaces. In this case, it is the 2001:470:1d4c:1 range. Now, the border router is ready to connect to end nodes.
 
 -   Connecting an end-node
 
-    Test the complete setup, use the
-    [mbed-os-example-client](https://github.com/ARMmbed/mbed-os-example-client.git)
-    repo and mbed Device Connector / mbed Cloud. This is left to the user to
-    implement & is beyond the scope of this document.
+    Test the complete setup, use the [mbed-os-example-client](https://github.com/ARMmbed/mbed-os-example-client.git)
+    repo and mbed Device Connector / mbed Cloud. This is left to the user to implement & is beyond the scope of this document.
 
-Congratulations!! your tunnel broker is now fully working 🙂 . Go ahead
-and have fun with IPv6.
+Congratulations!! your tunnel broker is now fully working 🙂 . Go ahead and have fun with IPv6.
 
 Troubleshooting:
 
--   Check for proper DNS: xxx
-
--   Check for RAV (routing advertisements packets)
-
--   Using tcpdump on the RPi
+-   Check for RAV (routing advertisements packets), for example using tcpdump on the RPi:
 
 ```
 tcpdump -v -i eth0
 ```
 
-provides a dump of all the packets on the ETH port and looking for the
-packets with 2001:470:1d4c series of IP address gives a log of the
-traffic from the border router. You can also use this to troubleshoot
-issues. An example of the logs is attached here. NOTE: The attachment
-can only be accessed offline. Please open this document offline to
-open the attached object.
+Provides a dump of all the packets on the ETH port and looking for the packets with 2001:470:1d4c series of IP address gives a log of the traffic from the border router. You can also use this to troubleshoot issues. An example of the logs is attached here.
+NOTE: The attachment can only be accessed offline. Please open this document offline to open the attached object.
 
 ```
 root@raspberrypi:~\# tcpdump -i eth0
-tcpdump: verbose output suppressed, use -v or -vv for full protocol
-decode
-listening on eth0, link-type EN10MB (Ethernet), capture size 262144
-bytes
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on eth0, link-type EN10MB (Ethernet), capture size 262144 bytes
 11:52:16.346026 IP6 fe80::4e85:b5d0:20a7:fab6 &gt;
-2001:470:1d4c:1:7874:6668:977a:ba86: ICMP6, neighbor solicitation, who
-has 2001:470:1d4c:1:7874:6668:977a:ba86, length 32
+2001:470:1d4c:1:7874:6668:977a:ba86: ICMP6, neighbor solicitation, who has 2001:470:1d4c:1:7874:6668:977a:ba86, length 32
 11:52:16.346632 IP6 fe80::ec42:e6ff:fe63:23fc &gt;
-fe80::4e85:b5d0:20a7:fab6: ICMP6, neighbor advertisement, tgt is
-2001:470:1d4c:1:7874:6668:977a:ba86, length 32
+fe80::4e85:b5d0:20a7:fab6: ICMP6, neighbor advertisement, tgt is 2001:470:1d4c:1:7874:6668:977a:ba86, length 32
 11:52:21.274143 IP6 fe80::ec42:e6ff:fe63:23fc &gt;
-fe80::4e85:b5d0:20a7:fab6: ICMP6, neighbor solicitation, who has
-fe80::4e85:b5d0:20a7:fab6, length 32
+fe80::4e85:b5d0:20a7:fab6: ICMP6, neighbor solicitation, who has fe80::4e85:b5d0:20a7:fab6, length 32
 11:52:21.274499 IP6 fe80::4e85:b5d0:20a7:fab6 &gt;
-fe80::ec42:e6ff:fe63:23fc: ICMP6, neighbor advertisement, tgt is
-fe80::4e85:b5d0:20a7:fab6, length 24
+fe80::ec42:e6ff:fe63:23fc: ICMP6, neighbor advertisement, tgt is fe80::4e85:b5d0:20a7:fab6, length 24
 11:52:22.407926 IP6 2001:470:1d4c:1:7874:6668:977a:ba86.49247 &gt;
-0200.0000.0000.0000.2500.1062.0d0f.7062.ip6.static.sl-reverse.com.5684:
-UDP, length 120
+0200.0000.0000.0000.2500.1062.0d0f.7062.ip6.static.sl-reverse.com.5684: UDP, length 120
 11:52:22.662839 IP6
 0200.0000.0000.0000.2500.1062.0d0f.7062.ip6.static.sl-reverse.com.5684
 &gt; 2001:470:1d4c:1:7874:6668:977a:ba86.49247: UDP, length 44
@@ -482,16 +418,14 @@ UDP, length 120
 ICMP6, router advertisement, length 80
 11:52:25.873364 IP6 2001:470:1d4c:1:7874:6668:977a:ba86.49247 &gt;
 0200.0000.0000.0000.2500.1062.0d0f.7062.ip6.static.sl-reverse.com.5684:
-UDP, length 51
+UDP, length 51 
 11:52:26.099074 IP6
 0200.0000.0000.0000.2500.1062.0d0f.7062.ip6.static.sl-reverse.com.5684
 &gt; 2001:470:1d4c:1:7874:6668:977a:ba86.49247: UDP, length 44
 11:52:26.276029 IP6 fe80::4e85:b5d0:20a7:fab6 &gt;
-fe80::ec42:e6ff:fe63:23fc: ICMP6, neighbor solicitation, who has
-fe80::ec42:e6ff:fe63:23fc, length 32
+fe80::ec42:e6ff:fe63:23fc: ICMP6, neighbor solicitation, who has fe80::ec42:e6ff:fe63:23fc, length 32
 11:52:26.276645 IP6 fe80::ec42:e6ff:fe63:23fc &gt;
-fe80::4e85:b5d0:20a7:fab6: ICMP6, neighbor advertisement, tgt is
-fe80::ec42:e6ff:fe63:23fc, length 32
+fe80::4e85:b5d0:20a7:fab6: ICMP6, neighbor advertisement, tgt is fe80::ec42:e6ff:fe63:23fc, length 32
 11:52:27.481467 IP6 fe80::4e85:b5d0:20a7:fab6 &gt; ip6-allnodes:
 ICMP6, router advertisement, length 80
 11:52:35.086214 IP6 fe80::4e85:b5d0:20a7:fab6 &gt; ip6-allnodes:
