@@ -23,7 +23,7 @@ IPv6 and vice-versa.
 
 **This setup uses the following model:**
 
-<img src="./media/image1.png" width="717" height="192" />
+<img align="center" src="./media/image1.png" width="717" height="192" />
 
 The proposed setup uses a USB modem and a cellular backhaul with a fixed
 and public IPv4 address provided by the ISP. This is required to allow
@@ -66,7 +66,7 @@ SW required:
 
 3.   An account and a regular tunnel created on Hurricane Electric – For
     this there is a need of static public IP assigned from your ISP. In
-    this case, we have a static public IP (137.221.10.4) assigned from
+    this case, we have a static public IP assigned from
     the mobile operator. The Hurricane Electric tunnel is created based
     on this IP address.
 
@@ -85,14 +85,13 @@ sudo apt-get install wvdial
     “/etc/wvdial.conf” with following details:
 
 ```
-[Dialer comms\]
+[Dialer comms]
 
 Init1 = ATZ
 Init2 = ATQ0 V1 E1 +FCLASS=0
 Init3 = AT+CGDCONT=1, "IP","&lt;your APN here&gt;"
 Phone = \*99\#
 Auto DNS = on
-\#Modem Type = Analog Modem
 Stupid mode = 1
 Baud = 460800
 New PPPD = yes
@@ -118,11 +117,9 @@ system. However, in most cases, USB1 should be good to go.
 root@raspberrypi:~\# lsusb
 Bus 001 Device 006: ID 05c6:6000 Qualcomm, Inc. Siemens SG75
 Bus 001 Device 004: ID 0e8f:0022 GreenAsia Inc.
-Bus 001 Device 003: ID 0424:ec00 Standard Microsystems Corp.
-SMSC9512/9514 Fast Ethernet Adapter
+Bus 001 Device 003: ID 0424:ec00 Standard Microsystems Corp. SMSC9512/9514 Fast Ethernet Adapter
 Bus 001 Device 002: ID 0424:9514 Standard Microsystems Corp.
 Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
-root@raspberrypi:~\#
 ```
 
 Note the USB modem is detected as 05c6:6000 Qualcomm Inc. Siemens SG75
@@ -142,39 +139,39 @@ visual indication for successful connection.
 
 ```
 root@raspberrypi:~\# wvdial comms
---&gt; WvDial: Internet dialer version 1.61
---&gt; Initializing modem.
---&gt; Sending: ATZ
+WvDial: Internet dialer version 1.61
+Initializing modem.
+Sending: ATZ
 ATZ
 OK
---&gt; Sending: ATQ0 V1 E1 +FCLASS=0
+Sending: ATQ0 V1 E1 +FCLASS=0
 ATQ0 V1 E1 +FCLASS=0
 OK
---&gt; Sending: AT+CGDCONT=1, "IP","comms365.o2.com"
+Sending: AT+CGDCONT=1, "IP","comms365.o2.com"
 AT+CGDCONT=1, "IP","comms365.o2.com"
 OK
---&gt; Modem initialized.
---&gt; Sending: ATDT\*99\#
---&gt; Waiting for carrier.
+Modem initialized.
+Sending: ATDT\*99\#
+Waiting for carrier.
 ATDT\*99\#
 CONNECT 100000000
---&gt; Carrier detected. Starting PPP immediately.
---&gt; Starting pppd at Thu Jul 20 16:59:06 2017
---&gt; Pid of pppd: 1071
---&gt; Using interface ppp0
---&gt; pppd: ▒Q▒v8Ĩ\[01\]▒è\[01\]
---&gt; pppd: ▒Q▒v8Ĩ\[01\]▒è\[01\]
---&gt; pppd: ▒Q▒v8Ĩ\[01\]▒è\[01\]
---&gt; pppd: ▒Q▒v8Ĩ\[01\]▒è\[01\]
---&gt; pppd: ▒Q▒v8Ĩ\[01\]▒è\[01\]
---&gt; local IP address 10.254.10.4
---&gt; pppd: ▒Q▒v8Ĩ\[01\]▒è\[01\]
---&gt; remote IP address 10.64.64.64
---&gt; pppd: ▒Q▒v8Ĩ\[01\]▒è\[01\]
---&gt; primary DNS address 5.226.60.162
---&gt; pppd: ▒Q▒v8Ĩ\[01\]▒è\[01\]
---&gt; secondary DNS address 5.226.56.162
---&gt; pppd: ▒Q▒v8Ĩ\[01\]▒è\[01\]
+Carrier detected. Starting PPP immediately.
+Starting pppd at Thu Jul 20 16:59:06 2017
+Pid of pppd: 1071
+Using interface ppp0
+pppd: ▒Q▒v8Ĩ\[01\]▒è\[01\]
+pppd: ▒Q▒v8Ĩ\[01\]▒è\[01\]
+pppd: ▒Q▒v8Ĩ\[01\]▒è\[01\]
+pppd: ▒Q▒v8Ĩ\[01\]▒è\[01\]
+pppd: ▒Q▒v8Ĩ\[01\]▒è\[01\]
+local IP address 10.254.10.4
+pppd: ▒Q▒v8Ĩ\[01\]▒è\[01\]
+remote IP address 10.64.64.64
+pppd: ▒Q▒v8Ĩ\[01\]▒è\[01\]
+primary DNS address 5.226.60.162
+pppd: ▒Q▒v8Ĩ\[01\]▒è\[01\]
+secondary DNS address 5.226.56.162
+pppd: ▒Q▒v8Ĩ\[01\]▒è\[01\]
 
 ```
 
@@ -194,24 +191,16 @@ strength of the carrier / network coverage of the provider that has been
 chosen.
 
 ```
-Jul 17 11:47:20 raspberrypi pppd\[2013\]: pppd 2.4.6 started by root,
-uid 0
+Jul 17 11:47:20 raspberrypi pppd\[2013\]: pppd 2.4.6 started by root, uid 0
 Jul 17 11:47:20 raspberrypi pppd\[2013\]: Using interface ppp0
-Jul 17 11:47:20 raspberrypi pppd\[2013\]: Connect: ppp0 &lt;--&gt;
-/dev/ttyUSB1
-Jul 17 11:47:20 raspberrypi pppd\[2013\]: CHAP authentication
-succeeded
-Jul 17 11:47:20 raspberrypi pppd\[2013\]: CHAP authentication
-succeeded
-Jul 17 11:47:20 raspberrypi pppd\[2013\]: Could not determine remote
-IP address: defaulting to 10.64.64.64
+Jul 17 11:47:20 raspberrypi pppd\[2013\]: Connect: ppp0 -> /dev/ttyUSB1
+Jul 17 11:47:20 raspberrypi pppd\[2013\]: CHAP authentication succeeded
+Jul 17 11:47:20 raspberrypi pppd\[2013\]: CHAP authentication succeeded
+Jul 17 11:47:20 raspberrypi pppd\[2013\]: Could not determine remote IP address: defaulting to 10.64.64.64
 Jul 17 11:47:20 raspberrypi pppd\[2013\]: local IP address 10.254.10.4
-Jul 17 11:47:20 raspberrypi pppd\[2013\]: remote IP address
-10.64.64.64
-Jul 17 11:47:20 raspberrypi pppd\[2013\]: primary DNS address
-5.226.60.162
-Jul 17 11:47:20 raspberrypi pppd\[2013\]: secondary DNS address
-5.226.56.162
+Jul 17 11:47:20 raspberrypi pppd\[2013\]: remote IP address 10.64.64.64
+Jul 17 11:47:20 raspberrypi pppd\[2013\]: primary DNS address 5.226.60.162
+Jul 17 11:47:20 raspberrypi pppd\[2013\]: secondary DNS address 5.226.56.162
 
 ```
 
@@ -251,22 +240,22 @@ configurations” tab in the tunnel details page.
 
 ```
 root@raspberrypi:~\# cat /etc/network/interfaces
-\# interfaces(5) file used by ifup(8) and ifdown(8)
-\# Please note that this file is written to be used with dhcpcd
-\# For static IP, consult /etc/dhcpcd.conf and 'man dhcpcd.conf'
-\# Include files from /etc/network/interfaces.d:
+# interfaces(5) file used by ifup(8) and ifdown(8)
+# Please note that this file is written to be used with dhcpcd
+# For static IP, consult /etc/dhcpcd.conf and 'man dhcpcd.conf'
+# Include files from /etc/network/interfaces.d:
 source-directory /etc/network/interfaces.d
 
 auto lo
 iface lo inet loopback
 
-\#The USB modem
+#The USB modem
 allow-hotpulug ppp0
 iface ppp0 inet dhcp
 dns-nameservers 8.8.8.8 8.8.4.4
 
-\#For forwarding traffic from USB to ETH
-\#iface eth0 inet dhcp
+#For forwarding traffic from USB to ETH
+#iface eth0 inet dhcp
 auto eth0
 iface eth0 inet static
  address 10.90.90.1
@@ -294,7 +283,6 @@ allow-hotplug wlan1
  iface wlan1 inet manual
  wpa-conf /etc/wpa\_supplicant/wpa\_supplicant.conf
 
-root@raspberrypi:~\#
 ```
 
 -   Restart the networking service with the following command on the
@@ -311,22 +299,14 @@ sudo /etc/init.d/networking restart
 ```
 root@raspberrypi:~\# ping google.com
 PING google.com (216.58.206.142) 56(84) bytes of data.
-64 bytes from lhr25s15-in-f14.1e100.net (216.58.206.142): icmp\_seq=1
-ttl=45 time=106 ms
-64 bytes from lhr25s15-in-f14.1e100.net (216.58.206.142): icmp\_seq=2
-ttl=45 time=78.6 ms
-64 bytes from lhr25s15-in-f14.1e100.net (216.58.206.142): icmp\_seq=3
-ttl=45 time=105 ms
-64 bytes from lhr25s15-in-f14.1e100.net (216.58.206.142): icmp\_seq=4
-ttl=45 time=88.6 ms
-64 bytes from lhr25s15-in-f14.1e100.net (216.58.206.142): icmp\_seq=5
-ttl=45 time=68.1 ms
-64 bytes from lhr25s15-in-f14.1e100.net (216.58.206.142): icmp\_seq=6
-ttl=45 time=57.5 ms
-64 bytes from lhr25s15-in-f14.1e100.net (216.58.206.142): icmp\_seq=7
-ttl=45 time=124 ms
-64 bytes from lhr25s15-in-f14.1e100.net (216.58.206.142): icmp\_seq=8
-ttl=45 time=75.7 ms
+64 bytes from lhr25s15-in-f14.1e100.net (216.58.206.142): icmp\_seq=1 ttl=45 time=106 ms
+64 bytes from lhr25s15-in-f14.1e100.net (216.58.206.142): icmp\_seq=2 ttl=45 time=78.6 ms
+64 bytes from lhr25s15-in-f14.1e100.net (216.58.206.142): icmp\_seq=3 ttl=45 time=105 ms
+64 bytes from lhr25s15-in-f14.1e100.net (216.58.206.142): icmp\_seq=4 ttl=45 time=88.6 ms
+64 bytes from lhr25s15-in-f14.1e100.net (216.58.206.142): icmp\_seq=5 ttl=45 time=68.1 ms
+64 bytes from lhr25s15-in-f14.1e100.net (216.58.206.142): icmp\_seq=6 ttl=45 time=57.5 ms
+64 bytes from lhr25s15-in-f14.1e100.net (216.58.206.142): icmp\_seq=7 ttl=45 time=124 ms
+64 bytes from lhr25s15-in-f14.1e100.net (216.58.206.142): icmp\_seq=8 ttl=45 time=75.7 ms
 ^C
 --- google.com ping statistics ---
 8 packets transmitted, 8 received, 0% packet loss, time 7003ms
@@ -340,48 +320,31 @@ rtt min/avg/max/mdev = 57.560/88.247/124.674/21.132 ms
 ```
 root@raspberrypi:~\# ping6 -c 10 google.com
 PING google.com(lhr25s15-in-x0e.1e100.net) 56 data bytes
-64 bytes from lhr25s15-in-x0e.1e100.net: icmp\_seq=1 ttl=57 time=519
-ms
-64 bytes from lhr25s15-in-x0e.1e100.net: icmp\_seq=2 ttl=57 time=499
-ms
-64 bytes from lhr25s15-in-x0e.1e100.net: icmp\_seq=3 ttl=57 time=439
-ms
-64 bytes from lhr25s15-in-x0e.1e100.net: icmp\_seq=4 ttl=57 time=419
-ms
-64 bytes from lhr25s15-in-x0e.1e100.net: icmp\_seq=5 ttl=57 time=419
-ms
-64 bytes from lhr25s15-in-x0e.1e100.net: icmp\_seq=6 ttl=57 time=499
-ms
-64 bytes from lhr25s15-in-x0e.1e100.net: icmp\_seq=7 ttl=57 time=419
-ms
-64 bytes from lhr25s15-in-x0e.1e100.net: icmp\_seq=8 ttl=57 time=399
-ms
-64 bytes from lhr25s15-in-x0e.1e100.net: icmp\_seq=9 ttl=57 time=439
-ms
-64 bytes from lhr25s15-in-x0e.1e100.net: icmp\_seq=10 ttl=57 time=429
-ms
+64 bytes from lhr25s15-in-x0e.1e100.net: icmp\_seq=1 ttl=57 time=519 ms
+64 bytes from lhr25s15-in-x0e.1e100.net: icmp\_seq=2 ttl=57 time=499 ms
+64 bytes from lhr25s15-in-x0e.1e100.net: icmp\_seq=3 ttl=57 time=439 ms
+64 bytes from lhr25s15-in-x0e.1e100.net: icmp\_seq=4 ttl=57 time=419 ms
+64 bytes from lhr25s15-in-x0e.1e100.net: icmp\_seq=5 ttl=57 time=419 ms
+64 bytes from lhr25s15-in-x0e.1e100.net: icmp\_seq=6 ttl=57 time=499 ms
+64 bytes from lhr25s15-in-x0e.1e100.net: icmp\_seq=7 ttl=57 time=419 ms
+64 bytes from lhr25s15-in-x0e.1e100.net: icmp\_seq=8 ttl=57 time=399 ms
+64 bytes from lhr25s15-in-x0e.1e100.net: icmp\_seq=9 ttl=57 time=439 ms
+64 bytes from lhr25s15-in-x0e.1e100.net: icmp\_seq=10 ttl=57 time=429 ms
 --- google.com ping statistics ---
 10 packets transmitted, 10 received, 0% packet loss, time 9208ms
 rtt min/avg/max/mdev = 399.306/448.511/519.452/39.691 ms
 
 root@raspberrypi:~\# ping6 -c 5 facebook.com
-PING facebook.com(edge-star-mini6-shv-01-amt2.facebook.com) 56 data
-bytes
-64 bytes from edge-star-mini6-shv-01-amt2.facebook.com: icmp\_seq=1
-ttl=57 time=549 ms
-64 bytes from edge-star-mini6-shv-01-amt2.facebook.com: icmp\_seq=2
-ttl=57 time=549 ms
-64 bytes from edge-star-mini6-shv-01-amt2.facebook.com: icmp\_seq=3
-ttl=57 time=688 ms
-64 bytes from edge-star-mini6-shv-01-amt2.facebook.com: icmp\_seq=4
-ttl=57 time=509 ms
-64 bytes from edge-star-mini6-shv-01-amt2.facebook.com: icmp\_seq=5
-ttl=57 time=510 ms
+PING facebook.com(edge-star-mini6-shv-01-amt2.facebook.com) 56 data bytes
+64 bytes from edge-star-mini6-shv-01-amt2.facebook.com: icmp\_seq=1 ttl=57 time=549 ms
+64 bytes from edge-star-mini6-shv-01-amt2.facebook.com: icmp\_seq=2 ttl=57 time=549 ms
+64 bytes from edge-star-mini6-shv-01-amt2.facebook.com: icmp\_seq=3 ttl=57 time=688 ms
+64 bytes from edge-star-mini6-shv-01-amt2.facebook.com: icmp\_seq=4 ttl=57 time=509 ms
+64 bytes from edge-star-mini6-shv-01-amt2.facebook.com: icmp\_seq=5 ttl=57 time=510 ms
 --- facebook.com ping statistics ---
 5 packets transmitted, 5 received, 0% packet loss, time 4468ms
 rtt min/avg/max/mdev = 509.854/561.561/688.526/65.861 ms
 
-root@raspberrypi:~\#
 ```
 
 -   Monitor the packets Tx/Rx on ppp0 and he-ipv6 interface to make sure
@@ -390,42 +353,41 @@ root@raspberrypi:~\#
 ```
 root@raspberrypi:~\# ifconfig
 eth0 Link encap:Ethernet HWaddr b8:27:eb:2a:d2:36
-inet addr:10.90.90.1 Bcast:10.90.90.255 Mask:255.255.255.0
-inet6 addr: fe80::4e85:b5d0:20a7:fab6/64 Scope:Link
-inet6 addr: 2001:470:1d4c:1::1/64 Scope:Global
-UP BROADCAST MULTICAST MTU:1500 Metric:1
-RX packets:0 errors:0 dropped:0 overruns:0 frame:0
-TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
-collisions:0 txqueuelen:1000
-RX bytes:0 (0.0 B) TX bytes:0 (0.0 B)
+	inet addr:10.90.90.1 Bcast:10.90.90.255 Mask:255.255.255.0
+	inet6 addr: fe80::4e85:b5d0:20a7:fab6/64 Scope:Link
+	inet6 addr: 2001:470:1d4c:1::1/64 Scope:Global
+	UP BROADCAST MULTICAST MTU:1500 Metric:1
+	RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+	TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+	collisions:0 txqueuelen:1000
+	RX bytes:0 (0.0 B) TX bytes:0 (0.0 B)
 
 he-ipv6 Link encap:IPv6-in-IPv4
-inet6 addr: 2001:470:1f1c:ce4::2/64 Scope:Global
-inet6 addr: fe80::afe:a04/64 Scope:Link
-UP POINTOPOINT RUNNING NOARP MTU:1480 Metric:1
-RX packets:26 errors:0 dropped:0 overruns:0 frame:0
-TX packets:29 errors:22 dropped:0 overruns:0 carrier:22
-collisions:0 txqueuelen:1
-RX bytes:2616 (2.5 KiB) TX bytes:2904 (2.8 KiB)
+	inet6 addr: 2001:470:1f1c:ce4::2/64 Scope:Global
+	inet6 addr: fe80::afe:a04/64 Scope:Link
+	UP POINTOPOINT RUNNING NOARP MTU:1480 Metric:1
+	RX packets:26 errors:0 dropped:0 overruns:0 frame:0
+	TX packets:29 errors:22 dropped:0 overruns:0 carrier:22
+	collisions:0 txqueuelen:1
+	RX bytes:2616 (2.5 KiB) TX bytes:2904 (2.8 KiB)
 
 lo Link encap:Local Loopback
-inet addr:127.0.0.1 Mask:255.0.0.0
-inet6 addr: ::1/128 Scope:Host
-UP LOOPBACK RUNNING MTU:65536 Metric:1
-RX packets:471 errors:0 dropped:0 overruns:0 frame:0
-TX packets:471 errors:0 dropped:0 overruns:0 carrier:0
-collisions:0 txqueuelen:1
-RX bytes:39788 (38.8 KiB) TX bytes:39788 (38.8 KiB)
+	inet addr:127.0.0.1 Mask:255.0.0.0
+	inet6 addr: ::1/128 Scope:Host
+	UP LOOPBACK RUNNING MTU:65536 Metric:1
+	RX packets:471 errors:0 dropped:0 overruns:0 frame:0
+	TX packets:471 errors:0 dropped:0 overruns:0 carrier:0
+	collisions:0 txqueuelen:1
+	RX bytes:39788 (38.8 KiB) TX bytes:39788 (38.8 KiB)
 
 ppp0 Link encap:Point-to-Point Protocol
-inet addr:10.254.10.4 P-t-P:10.64.64.64 Mask:255.255.255.255
-UP POINTOPOINT RUNNING NOARP MULTICAST MTU:1500 Metric:1
-RX packets:16 errors:0 dropped:0 overruns:0 frame:0
-TX packets:17 errors:0 dropped:0 overruns:0 carrier:0
-collisions:0 txqueuelen:3
-RX bytes:892 (892.0 B) TX bytes:1718 (1.6 KiB)
+	inet addr:10.254.10.4 P-t-P:10.64.64.64 Mask:255.255.255.255
+	UP POINTOPOINT RUNNING NOARP MULTICAST MTU:1500 Metric:1
+	RX packets:16 errors:0 dropped:0 overruns:0 frame:0
+	TX packets:17 errors:0 dropped:0 overruns:0 carrier:0
+	collisions:0 txqueuelen:3
+	RX bytes:892 (892.0 B) TX bytes:1718 (1.6 KiB)
 
-root@raspberrypi:~\#
 ```
 
 -   Connecting a Border Router
@@ -436,22 +398,21 @@ root@raspberrypi:~\#
         (Thread Border router) gives the following:
 
 ```
-> /&gt; I'm Thread (Border) Router
->
-> XPANID: f1:b5:a1:b2:c4:d5:a1:bd
->
-> PSKc: c8:a6:2e:ae:f3:68:f3:46:a9:9e:57:85:98:9d:1c:d0
->
-> mesh0 bootstrap ongoing..
->
-> eth0 already down
->
-> Bootstrap ready
->
-> eth0 ready
->
-> Ethernet (eth0) bootstrap ready. IP:
-> 2001:470:1d4c:1:fc45:f3d8:ba98:49ee
+ I'm Thread (Border) Router
+
+ XPANID: f1:b5:a1:b2:c4:d5:a1:bd
+
+ PSKc: c8:a6:2e:ae:f3:68:f3:46:a9:9e:57:85:98:9d:1c:d0
+
+ mesh0 bootstrap ongoing..
+
+ eth0 already down
+
+ Bootstrap ready
+
+ eth0 ready
+
+ Ethernet (eth0) bootstrap ready. IP: 2001:470:1d4c:1:fc45:f3d8:ba98:49ee
 ```
 
 The last line from the serial log of the border router indicates the
@@ -678,5 +639,3 @@ fe80::4e85:b5d0:20a7:fab6: ICMP6, neighbor advertisement, tgt is
 0 packets dropped by kernel
 root@raspberrypi:~\#
 ```
-
-\*\*\*\*\*\*\*\*\*\* End of document \*\*\*\*\*\*\*\*\*\*
