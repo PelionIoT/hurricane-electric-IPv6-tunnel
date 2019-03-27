@@ -1,11 +1,6 @@
 How to setup Hurricane Electric for IPv6/IPv4 tunnel on Raspberry Pi:
 =====================================================================
 
-Note: This document is a ***basic tutorial only***, for detailed instructions/troubleshooting, please get in touch on GitHub. We are
-happy to receive your PR's.
-
-A major requirement for this setup to be operational is to have a public static IP address for your chosen backhaul network.
-
 Purpose of the tunnel broker:
 -----------------------------
 
@@ -18,6 +13,7 @@ Purpose of the tunnel broker:
 	<img src="./media/image1.png" width="717" height="192" />
 </p>
 
+**Note**: A key requirement for this setup to be operational is to have a public static IP address for your chosen backhaul network.
 The proposed setup uses a USB modem and a cellular backhaul with a fixed and public IPv4 address provided by the ISP. This is required to allow incoming traffic from the HE tunnel broker to reach the IPv6 devices.
 
 A sample setup looks like the below:
@@ -37,18 +33,13 @@ Hardware required:
     Chinese made LTE USB modem with Siemens SG75 chip. Latest models seem to be using Qualcomm 9200 / 9500. \[[Product
     link](https://www.aliexpress.com/item/4G-LTE-100Mbps-USB-Modem-Network-Adapter-with-WiFi-Antenna-Hotspot-For-Win-XP-Vista-7/32810949702.html?spm=2114.search0104.3.138.PVl54K&ws_ab_test=searchweb0_0,searchweb201602_1_10152_10065_10151_10068_10130_10209_10192_10190_10301_10137_10303_10060_10155_438_10154_10056_10055_10054_10059_100031_10099_10103_10102_10052_10053_10142_10107_10050_10051_9985_10084_10083_10080_10082_10081_10110_10111_10112_10113_10114_10179_10182_10184_10078_10079_10210_10073_10189-10052_9985_10111,searchweb201603_16,ppcSwitch_4&btsid=90dde5d9-16d3-4b1f-9af4-1f4af205a0ad&algo_expid=3c5f0590-4082-4386-b08a-d9d63f18dc0c-18&algo_pvid=3c5f0590-4082-4386-b08a-d9d63f18dc0c)\]
 
-4.  SIM card with a fixed/public IPv4 address mobile connection. For
-    example, in the UK, one of the mobile network operators that offers
-    fixed/public IPv4 address is [Comms365
-    Ltd](https://www.comms365.com/fixedipsims/). You may use any
-    provider in your region who can provide a static public IP address.
+4.  SIM card with a fixed/public IPv4 address mobile connection. For example, in the UK, one of the mobile network operators that offers fixed/public IPv4 address is [Comms365 Ltd](https://www.comms365.com/fixedipsims/). You may use any provider in your region who can provide a static public IP address.
 
-5.  One of the supported mbed Border Routers, whether is 2.4GHz or
-    Sub-Ghz: <https://github.com/ARMmbed/nanostack-border-router>
+5.  One of the supported mbed Border Routers, whether is 2.4GHz or Sub-Ghz: <https://github.com/ARMmbed/nanostack-border-router>
 
 6.  An end node – to test complete setup. This is your choice!
 
-SW required:
+Software required:
 ------------
 
 1.   Raspbian Jessie installed on the SD card for the Pi.
@@ -381,8 +372,9 @@ The last line from the serial log of the border router indicates the ETH interfa
 
 -   Connecting an end-node
 
-    Test the complete setup, use the [mbed-os-example-client](https://github.com/ARMmbed/mbed-os-example-client.git)
-    repo and mbed Device Connector / mbed Cloud. This is left to the user to implement & is beyond the scope of this document.
+    Test the complete setup, use the [Pelion-Device-Ready-example](https://github.com/ARMmbed/pelion-ready-example)
+    repository and [Pelion Device Management](https://cloud.mbed.com) service. This is left to the user to implement & is beyond the scope of this document.
+    For more information, check the [Mbed OS documentation](https://os.mbed.com/docs/mbed-os/v5.12/mbed-os-pelion/device-management-for-mbed-os.html)
 
 Congratulations!! your tunnel broker is now fully working 🙂 . Go ahead and have fun with IPv6.
 
